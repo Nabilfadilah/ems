@@ -22,9 +22,8 @@ const AuthContext = ({ children }) => {
           //   }
           // );
 
-          const response = await axios.post(
+          const response = await axios.get(
             "http://localhost:5000/api/auth/verify",
-            {},
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -37,6 +36,7 @@ const AuthContext = ({ children }) => {
           }
         } else {
           setUser(null);
+          setLoading(false);
         }
       } catch (error) {
         if (error.response && !error.response.data.error) {
