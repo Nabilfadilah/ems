@@ -1,10 +1,23 @@
 import React from "react";
 import Typography from "../elements/text/Typography";
+import InputSearch from "../elements/input/InputSearch";
+import { Link } from "react-router-dom";
+import Button from "../elements/button/Button";
 
 const DepartmentList = () => {
   return (
-    <div>
-      <Typography>Defape lsisss</Typography>
+    <div className="p-5">
+      <div className="text-center">
+        <Typography className="text-2xl font-bold">
+          Manage Departments
+        </Typography>
+      </div>
+      <div className="flex justify-between items-center">
+        <InputSearch placeholder="Seacrh By Dep Name" />
+        <Button className="px-4 py-1 bg-green-800 hover:bg-green-700 text-white font-bold">
+          <Link to="/admin-dashboard/add-new-department">Add New</Link>
+        </Button>
+      </div>
     </div>
   );
 };
