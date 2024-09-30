@@ -10,7 +10,7 @@ Content-Type: application/json
 
 ###
 // verifikasi token
-POST http://localhost:5000/api/auth/verify
+GET http://localhost:5000/api/auth/verify
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NmY4YmRiNjQ2ODhjNWZhMThiZjQ2ZmQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mjc2NTAwOTEsImV4cCI6MTcyODUxNDA5MX0.Ur0WtQGgH6GVEO_6in_n7DU3Rg7iWsVX8hKwKZRtWCc
 
 ###
