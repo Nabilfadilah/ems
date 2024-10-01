@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import ModalLogin from "../components/elements/popup/ModalLogin";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -26,7 +27,8 @@ const Login = () => {
         } else {
           navigate("/employee-dashboard");
         }
-        alert("Successfully login");
+        ModalLogin();
+        // alert("Successfully login");
       }
       //   console.log(response);
     } catch (error) {
