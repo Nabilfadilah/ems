@@ -1,7 +1,14 @@
 import { forwardRef } from "react";
 
 const Input = forwardRef((props, ref) => {
-  const { type, placeholder, name, className = "w-full", onChange } = props; // Set default class w-80
+  const {
+    type,
+    placeholder,
+    name,
+    className = "w-full",
+    onChange,
+    value,
+  } = props; // Set default class w-80
 
   return (
     <input
@@ -13,6 +20,7 @@ const Input = forwardRef((props, ref) => {
       ref={ref}
       onChange={onChange}
       required
+      value={value}
     />
   );
 });
