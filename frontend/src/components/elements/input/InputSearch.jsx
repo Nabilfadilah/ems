@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import { AiOutlineSearch } from "react-icons/ai"; // Import ikon dari React Icons
 
 const InputSeacrh = forwardRef((props, ref) => {
-  const { placeholder, name, className } = props;
+  const { placeholder, name, className, onChange } = props;
 
   return (
     <div className="relative w-80">
@@ -17,6 +17,7 @@ const InputSeacrh = forwardRef((props, ref) => {
         name={name}
         id={name}
         ref={ref}
+        onChange={onChange}
       />
     </div>
   );
