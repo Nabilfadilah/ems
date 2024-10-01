@@ -1,0 +1,22 @@
+.sukses-popup {
+    border-radius: 16px !important;
+    width: max-content !important;
+    height: auto !important;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.sukses-title {
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    margin-top: -5px !important;
+    color: black !important;
+    margin-top: -5px !important;
+    margin-bottom: 3px !important;
+    line-height: 28px !important;
+}
+
+.sukses-image {
+    width: 180px !important;
+    height: auto !important;
+    margin-top: 25px !important;
+}
