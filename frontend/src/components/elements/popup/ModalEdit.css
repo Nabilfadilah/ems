@@ -1,0 +1,12 @@
+.edit-title {
+    font-size: 17px !important;
+    color: black !important;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.edit-popup {
+    border-radius: 16px !important;
+    width: max-content !important;
+    height: auto !important;
+    font-family: 'Roboto', sans-serif !important;
+}
