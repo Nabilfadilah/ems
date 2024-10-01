@@ -1,0 +1,48 @@
+.delete-poppup {
+    border-radius: 16px !important;
+    width: max-content !important;
+    height: auto !important;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.delete-title {
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    margin-top: -12px !important;
+    color: black !important;
+}
+
+.delete-image {
+    width: 118px !important;
+    height: auto !important;
+}
+
+.delete-confirmButton {
+    width: 80px !important;
+    background-color: #AE2A13 !important;
+    border-radius: 6px !important;
+    border: 1px solid #AE2A13 !important;
+    padding: 7px 0 !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    margin-right: 6px !important;
+    outline: none !important; 
+    box-shadow: none !important; 
+}
+
+.delete-confirmButton:hover {
+    background-color: rgba(174, 42, 19, 0.7) !important;
+    border: 1px solid rgba(174, 42, 19, 0.7) !important;
+}
+
+.delete-cancelButton {
+    width: 80px !important;
+    background: white !important;
+    color: black !important;
+    border-radius: 6px !important;
+    border: 1px solid black !important;
+    padding: 7px 0 !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    margin-left: 8px !important
+}
