@@ -1,12 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from "../elements/text/Typography";
 import InputForm from "../elements/input/InputForm";
 import Button from "../elements/button/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoMdArrowBack } from "react-icons/io";
 import Label from "../elements/input/Label";
+import axios from "axios";
+import ModalAdd from "../../components/elements/popup/ModalAdd";
 
 const AddDepartment = () => {
+  // state
+  const [department, setDepartment] = useState({
+    dep_name: "",
+    description: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setDepartment({ ...department, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/department/add",
+        department,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      ModalAdd();
+      if (response.data.success) {
+        navigate("/admin-dashboard/departments");
+      }
+    } catch (error) {
+      if (error.response && !error.response.data.success) {
+        alert(error.response.data.error);
+      }
+    }
+  };
+
   return (
     <div className="max-w-6xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md w-full">
       <div className="flex justify-between items-center mb-6">
@@ -17,7 +55,7 @@ const AddDepartment = () => {
           </Button>
         </Link>
       </div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="w-full">
           <InputForm
             className="w-full"
@@ -26,6 +64,7 @@ const AddDepartment = () => {
             type="text"
             placeholder="John Doe"
             required
+            onChange={handleChange}
           />
         </div>
 
@@ -35,6 +74,7 @@ const AddDepartment = () => {
             name="description"
             placeholder="John Doe"
             className="mt-1 p-2 block w-full border border-gray-400 rounded-md"
+            onChange={handleChange}
           />
         </div>
 
