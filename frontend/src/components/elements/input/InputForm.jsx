@@ -3,7 +3,8 @@ import Label from "./Label";
 import Input from "./Input";
 
 const InputForm = forwardRef((props, ref) => {
-  const { label, name, type, placeholder, className, onChange, value } = props; // Ambil className dari props
+  const { label, name, type, placeholder, className, onChange, value, accept } =
+    props; // Ambil className dari props
 
   return (
     <div className="mb-3">
@@ -17,6 +18,7 @@ const InputForm = forwardRef((props, ref) => {
         onChange={onChange}
         required
         value={value}
+        accept={accept}
       />
     </div>
   );

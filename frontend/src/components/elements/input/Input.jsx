@@ -8,6 +8,7 @@ const Input = forwardRef((props, ref) => {
     className = "w-full",
     onChange,
     value,
+    accept,
   } = props; // Set default class w-80
 
   return (
@@ -21,6 +22,7 @@ const Input = forwardRef((props, ref) => {
       onChange={onChange}
       required
       value={value}
+      accept={accept}
     />
   );
 });
