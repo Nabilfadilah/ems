@@ -45,7 +45,9 @@ const EmployeeList = () => {
             dob: new Date(emp.dob).toLocaleDateString(),
             action: (
               <EmployeeButtons
-                Id={emp._id}
+                // Id={emp._id}
+                _id={emp._id}
+
                 // onEmployeeDelete={onEmployeeDelete}
               />
             ),
@@ -76,7 +78,7 @@ const EmployeeList = () => {
   return (
     <>
       {emLoading ? (
-        <div>Loading...</div>
+        <div className="text-center p-80">Loading...</div>
       ) : (
         <div className="p-5">
           <div className="text-center">
