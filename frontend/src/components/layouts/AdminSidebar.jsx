@@ -17,6 +17,7 @@ const AdminSidebar = () => {
         <Typography className="text-2xl text-center">Employee MS</Typography>
       </div>
       <div className="px-4">
+        {/* dashboard */}
         <NavLink
           to="/admin-dashboard"
           className={({ isActive }) =>
@@ -29,13 +30,21 @@ const AdminSidebar = () => {
           <FaTachometerAlt />
           <Typography>Dashboard</Typography>
         </NavLink>
+
+        {/* employee */}
         <NavLink
-          to="/admin-dashboard"
-          className="flex items-center space-x-4 py-2.5 px-4 rounded"
+          to="/admin-dashboard/employees"
+          className={({ isActive }) =>
+            `${
+              isActive ? "bg-teal-900" : "hover:bg-teal-800"
+            } flex items-center space-x-4 py-2.5 px-4 rounded`
+          }
         >
           <FaUser />
           <Typography>Employee</Typography>
         </NavLink>
+
+        {/* department */}
         <NavLink
           to="/admin-dashboard/departments"
           className={({ isActive }) =>
@@ -47,6 +56,8 @@ const AdminSidebar = () => {
           <FaBuilding />
           <Typography>Department</Typography>
         </NavLink>
+
+        {/* leave */}
         <NavLink
           to="/admin-dashboard"
           className="flex items-center space-x-4 py-2.5 px-4 rounded"
@@ -54,6 +65,8 @@ const AdminSidebar = () => {
           <FaCalendarAlt />
           <Typography>Leave</Typography>
         </NavLink>
+
+        {/* salary */}
         <NavLink
           to="/admin-dashboard"
           className="flex items-center space-x-4 py-2.5 px-4 rounded"
@@ -61,6 +74,8 @@ const AdminSidebar = () => {
           <FaMoneyBillWave />
           <Typography>Salary</Typography>
         </NavLink>
+
+        {/* settings */}
         <NavLink
           to="/admin-dashboard"
           className="flex items-center space-x-4 py-2.5 px-4 rounded"
