@@ -9,6 +9,8 @@ import AdminSummary from "./components/layouts/AdminSummary";
 import DepartmentList from "./components/layouts/DepartmentList";
 import AddDepartment from "./components/layouts/AddDepartment";
 import EditDepartment from "./components/layouts/EditDepartment";
+import EmployeeList from "./components/layouts/EmployeeList";
+import AddEmployee from "./components/layouts/AddEmployee";
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
         >
           {/* untuk menghubungkan dengan sumary menngunakan outlet */}
           <Route index element={<AdminSummary />}></Route>
+          {/* route department */}
           <Route
             path="/admin-dashboard/departments"
             element={<DepartmentList />}
@@ -39,6 +42,13 @@ function App() {
           <Route
             path="/admin-dashboard/department/:id"
             element={<EditDepartment />}
+          />
+
+          {/* route employee */}
+          <Route path="/admin-dashboard/employees" element={<EmployeeList />} />
+          <Route
+            path="/admin-dashboard/add-employee"
+            element={<AddEmployee />}
           />
         </Route>
 
