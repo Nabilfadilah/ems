@@ -59,33 +59,6 @@ export const columns = [
 
 export const EmployeeButtons = ({ _id }) => {
   const navigate = useNavigate();
-
-  // const handleDelete = async (id) => {
-  //   const konfirmasi = await ModalDelete();
-
-  //   if (konfirmasi) {
-  //     try {
-  //       const response = await axios.delete(
-  //         `http://localhost:5000/api/employee/${id}`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //           },
-  //         }
-  //       );
-  //       if (response.data.success) {
-  //         onEmployeeDelete(id);
-  //       }
-  //     } catch (error) {
-  //       if (error.response && !error.response.data.success) {
-  //         alert(error.response.data.error);
-  //       } else {
-  //         alert("Terjadi kesalahan di server.");
-  //       }
-  //     }
-  //   }
-  // };
-
   return (
     <div className="flex space-x-4">
       {/* view */}
@@ -99,7 +72,7 @@ export const EmployeeButtons = ({ _id }) => {
       {/* edit */}
       <Button
         className="bg-green-800 text-white"
-        onClick={() => navigate(`/admin-dashboard/employee/${_id}`)}
+        onClick={() => navigate(`/admin-dashboard/employee/edit/${_id}`)}
       >
         Edit
       </Button>
