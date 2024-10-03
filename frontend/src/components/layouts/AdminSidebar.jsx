@@ -68,8 +68,12 @@ const AdminSidebar = () => {
 
         {/* salary */}
         <NavLink
-          to="/admin-dashboard"
-          className="flex items-center space-x-4 py-2.5 px-4 rounded"
+          to="/admin-dashboard/salary"
+          className={({ isActive }) =>
+            `${
+              isActive ? "bg-teal-900" : "hover:bg-teal-800"
+            } flex items-center space-x-4 py-2.5 px-4 rounded`
+          }
         >
           <FaMoneyBillWave />
           <Typography>Salary</Typography>
