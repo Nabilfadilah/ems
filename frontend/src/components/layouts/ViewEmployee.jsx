@@ -4,10 +4,14 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Button from "../elements/button/Button";
 import { IoMdArrowBack } from "react-icons/io";
+import { useAuth } from "../../context/AuthContext";
 
 const ViewEmployee = () => {
   const { id } = useParams();
   const [employee, setEmployee] = useState(null);
+
+  // untuk kondisi tombol back
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchEmployee = async () => {
@@ -41,11 +45,14 @@ const ViewEmployee = () => {
             <Typography className="text-2xl font-bold px-10">
               Employee Details
             </Typography>
-            <Link to="/admin-dashboard/employees">
-              <Button className="bg-gray-700 hover:bg-gray-600 text-white flex items-center gap-1">
-                <IoMdArrowBack strokeWidth={2} className="h-4 w-4" /> Back
-              </Button>
-            </Link>
+
+            {user.role === "admin" && ( // Kondisi untuk hanya menampilkan button jika user adalah admin
+              <Link to="/admin-dashboard/employees">
+                <Button className="bg-gray-700 hover:bg-gray-600 text-white flex items-center gap-1">
+                  <IoMdArrowBack strokeWidth={2} className="h-4 w-4" /> Back
+                </Button>
+              </Link>
+            )}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
