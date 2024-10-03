@@ -102,7 +102,12 @@ export const EmployeeButtons = ({ _id }) => {
       </Button>
 
       {/* salary */}
-      <Button className="bg-yellow-700 text-white">Salary</Button>
+      <Button
+        className="bg-yellow-700 text-white"
+        onClick={() => navigate(`/admin-dashboard/employee/salary/${_id}`)}
+      >
+        Salary
+      </Button>
 
       {/* leave */}
       <Button className="bg-red-700 text-white">Leave</Button>
