@@ -47,11 +47,9 @@ const EmployeeList = () => {
               <EmployeeButtons
                 // Id={emp._id}
                 _id={emp._id}
-
                 // onEmployeeDelete={onEmployeeDelete}
               />
             ),
-            // action: <DepartmentButtons Id={dep._id} />,
           }));
           setEmployees(data);
           setFilteredEmployees(data);
@@ -68,9 +66,9 @@ const EmployeeList = () => {
   }, []);
 
   // search
-  const filterEmployees = (e) => {
+  const handleSearch = (e) => {
     const records = employees.filter((emp) =>
-      emp.emp_name.toLowerCase().includes(e.target.value.toLowerCase())
+      emp.name.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setFilteredEmployees(records);
   };
@@ -89,7 +87,7 @@ const EmployeeList = () => {
           <div className="flex justify-between items-center">
             <InputSeacrh
               placeholder="Seacrh By Dep Name"
-              onChange={filterEmployees}
+              onChange={handleSearch}
             />
             <Button className="px-4 py-1 bg-green-800 hover:bg-green-700 text-white font-bold">
               <Link to="/admin-dashboard/add-employee">Add New</Link>
