@@ -97,6 +97,12 @@ function App() {
           {/* route leaves */}
           <Route path="/employee-dashboard/leaves" element={<LeaveList />} />
           <Route path="/employee-dashboard/add-leave" element={<AddLeave />} />
+
+          {/* route salary */}
+          <Route
+            path="/employee-dashboard/salary/:id"
+            element={<SalaryEmployee />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
