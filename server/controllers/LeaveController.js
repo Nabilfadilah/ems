@@ -5,6 +5,30 @@ import bcrypt from "bcrypt"
 import path from "path"
 import Leave from "../models/Leave.js"
 
+// get all
+const getLeaves = async (req, res) => {
+    try {
+        const employees = await Employee.find().populate('userId', {password: 0}).populate("department")
+        return res.status(200).json({success: true, employees})
+    } catch(error) {
+        return res.status(500).json({success: false, error: "get employee server error"})
+    }
+}
+
+// get by id
+const getLeave = async (req, res) => {
+
+    try {
+        const {id} = req.params;
+        const employee = await Employee.findOne({userId: id})
+
+        const leave = await Leave.find({employeeId: employee._id})
+        return res.status(200).json({success: true, leave})
+    } catch(error) {
+        return res.status(500).json({success: false, error: "get leave server error"})
+    }
+}
+
 // add
 const addLeave = async (req, res) => {
     try {
@@ -34,4 +58,4 @@ const addLeave = async (req, res) => {
     }
 }
 
-export {addLeave}
+export {addLeave, getLeaves, getLeave}
