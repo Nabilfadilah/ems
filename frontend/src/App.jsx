@@ -15,6 +15,9 @@ import ViewEmployee from "./components/layouts/ViewEmployee";
 import EditEmployee from "./components/layouts/EditEmployee";
 import AddSalary from "./components/layouts/AddSalary";
 import SalaryEmployee from "./components/layouts/SalaryEmployee";
+import EmployeeSummary from "./components/layouts/employeeDashboard/EmployeeSummary";
+import LeaveList from "./components/layouts/employeeDashboard/LeaveList";
+import AddLeave from "./components/layouts/employeeDashboard/AddLeave";
 
 function App() {
   return (
@@ -71,7 +74,30 @@ function App() {
           />
         </Route>
 
-        <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
+        {/* route khusus employee */}
+        <Route
+          path="/employee-dashboard"
+          element={
+            <PrivateRoutes>
+              <RoleBaseRoutes requiredRole={["admin", "employee"]}>
+                <EmployeeDashboard />
+              </RoleBaseRoutes>
+            </PrivateRoutes>
+          }
+        >
+          {/* untuk menghubungkan dengan sumary menngunakan outlet */}
+          <Route index element={<EmployeeSummary />} />
+
+          {/* route profile */}
+          <Route
+            path="/employee-dashboard/profile/:id"
+            element={<ViewEmployee />}
+          />
+
+          {/* route leaves */}
+          <Route path="/employee-dashboard/leaves" element={<LeaveList />} />
+          <Route path="/employee-dashboard/add-leave" element={<AddLeave />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
