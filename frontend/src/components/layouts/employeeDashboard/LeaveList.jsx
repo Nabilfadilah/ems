@@ -25,8 +25,9 @@ const LeaveList = () => {
       );
       console.log("View view data: ", response.data);
       if (response.data.success) {
-        setleaves(response.data.leave);
-        setFilteredleaves(response.data.leave);
+        // rubah jadi leaves
+        setleaves(response.data.leaves);
+        setFilteredleaves(response.data.leaves);
       }
     } catch (error) {
       if (error.response && !error.response.data.success) {
@@ -82,7 +83,8 @@ const LeaveList = () => {
               <tbody className="text-white">
                 {filteredleaves.map((leave) => (
                   <tr
-                    key={leave.id}
+                    // key={leave.id}
+                    key={leave._id}
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                   >
                     <td className="px-6 py-3">{sno++}.</td>
