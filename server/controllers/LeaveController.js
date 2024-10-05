@@ -5,13 +5,37 @@ import bcrypt from "bcrypt"
 import path from "path"
 import Leave from "../models/Leave.js"
 
-// get all
+// get all admin dashboard
+// const getLeaves = async (req, res) => {
+//     try {
+//         const employees = await Employee.find().populate('userId', {password: 0}).populate("department")
+//         return res.status(200).json({success: true, employees})
+//     } catch(error) {
+//         return res.status(500).json({success: false, error: "get employee server error"})
+//     }
+// }
+
+// get all employee dashboard
 const getLeaves = async (req, res) => {
     try {
-        const employees = await Employee.find().populate('userId', {password: 0}).populate("department")
-        return res.status(200).json({success: true, employees})
+        const leaves = await Leave.find().populate({
+            path: "employeeId",
+            populate: [
+                {
+                    path: "department",
+                    select: "dep_name"
+                },
+                {
+                    path: "userId",
+                    select: "name"
+                }
+            ]
+        })
+        return res.status(200).json({success: true, leaves})
+
     } catch(error) {
-        return res.status(500).json({success: false, error: "get employee server error"})
+        console.log(error.message)
+        return res.status(500).json({success: false, error: "get leaves server error"})
     }
 }
 
