@@ -19,6 +19,7 @@ import EmployeeSummary from "./components/layouts/employeeDashboard/EmployeeSumm
 import LeaveList from "./components/layouts/employeeDashboard/LeaveList";
 import AddLeave from "./components/layouts/employeeDashboard/AddLeave";
 import SettingEmployee from "./components/layouts/employeeDashboard/SettingEmployee";
+import LeaveAdmin from "./components/layouts/LeaveAdmin";
 
 function App() {
   return (
@@ -66,6 +67,9 @@ function App() {
             path="/admin-dashboard/employee/edit/:id"
             element={<EditEmployee />}
           />
+
+          {/* route leave */}
+          <Route path="/admin-dashboard/leaves" element={<LeaveAdmin />} />
 
           {/* route salary */}
           <Route path="/admin-dashboard/salary" element={<AddSalary />} />
