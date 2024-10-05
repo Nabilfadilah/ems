@@ -15,16 +15,35 @@ const getLeaves = async (req, res) => {
     }
 }
 
-// get by id
+// get by id #1
+// const getLeave = async (req, res) => {
+
+//     try {
+//         const {id} = req.params;
+//         const employee = await Employee.findOne({userId: id})
+
+//         const leave = await Leave.find({employeeId: employee._id})
+//         return res.status(200).json({success: true, leave})
+//     } catch(error) {
+//         return res.status(500).json({success: false, error: "get leave server error"})
+//     }
+// }
+
+// get by id #2
 const getLeave = async (req, res) => {
 
     try {
         const {id} = req.params;
-        const employee = await Employee.findOne({userId: id})
+        let leaves = await Leave.find({employeeId: id})
+        if(!leaves || leaves.length === 0 ) {
+            const employee = await Employee.findOne({userId: id})
+            leaves = await Leave.find({employeeId: employee._id})
+        }
 
-        const leave = await Leave.find({employeeId: employee._id})
-        return res.status(200).json({success: true, leave})
+        return res.status(200).json({success: true, leaves})
+        
     } catch(error) {
+        console.log(error.message)
         return res.status(500).json({success: false, error: "get leave server error"})
     }
 }
