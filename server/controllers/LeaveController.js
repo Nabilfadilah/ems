@@ -107,7 +107,8 @@ const addLeave = async (req, res) => {
 // get detail id (opsi ke-2)
 const getLeaveDetail = async (req, res) => {
     try {
-        const leave = await Leave.findById(req.params.id).populate({
+        const {id} = req.params;
+        const leave = await Leave.findById({_id: id}).populate({
             path: "employeeId",
             populate: [
                 {
@@ -128,7 +129,7 @@ const getLeaveDetail = async (req, res) => {
         return res.status(200).json({ success: true, leave });
     } catch (error) {
         console.log(error.message);
-        return res.status(500).json({ success: false, error: "get by id leave server error" });
+        return res.status(500).json({ success: false, error: "leave detail server error" });
     }
 }
 // get by id opsi ke 1
