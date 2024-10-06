@@ -110,7 +110,12 @@ export const EmployeeButtons = ({ _id }) => {
       </Button>
 
       {/* leave */}
-      <Button className="bg-red-700 text-white">Leave</Button>
+      <Button
+        className="bg-red-700 text-white"
+        onClick={() => navigate(`/admin-dashboard/employee/leaves/${_id}`)}
+      >
+        Leave
+      </Button>
     </div>
   );
 };
