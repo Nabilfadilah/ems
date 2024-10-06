@@ -101,4 +101,72 @@ const addLeave = async (req, res) => {
     }
 }
 
-export {addLeave, getLeaves, getLeave}
+// get detail id (opsi ke-2)
+const getLeaveDetail = async (req, res) => {
+    try {
+        const leave = await Leave.findById(req.params.id).populate({
+            path: "employeeId",
+            populate: [
+                {
+                    path: "userId",
+                    select: "name profileImage"
+                },
+                {
+                    path: "department",
+                    select: "dep_name"
+                }
+            ]
+        });
+
+        if (!leave) {
+            return res.status(404).json({ success: false, error: "Leave not found" });
+        }
+        
+        return res.status(200).json({ success: true, leave });
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({ success: false, error: "get by id leave server error" });
+    }
+}
+// get by id opsi ke 1
+// const getLeaveDetail = async (req, res) => {
+//     try {
+//         const leave = await Leave.find().populate({
+//             path: "employeeId",
+//             populate: [
+//                 {
+//                     path: "department",
+//                     select: "dep_name"
+//                 },
+//                 {
+//                     path: "userId",
+//                     select: "name, profileImage"
+//                 }
+//             ]
+//         })
+        
+//         return res.status(200).json({success: true, leave})
+
+//     } catch(error) {
+//         console.log(error.message)
+//         return res.status(500).json({success: false, error: "get by id leave server error"})
+//     }
+// }
+
+// update 
+const updateLeave = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const leave = await Leave.findByIdAndUpdate({_id: id}, {status: req.body.status})
+
+        if(!leave) {
+            return res.status(404).json({success: false, error: "leave not founded"})
+        }
+        return res.status(200).json({success: true})
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).json({success: false, error: "leave update server error"})
+    }
+} 
+
+export {addLeave, getLeaves, getLeave, getLeaveDetail, updateLeave}
