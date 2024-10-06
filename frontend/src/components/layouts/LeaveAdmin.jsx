@@ -54,10 +54,10 @@ const LeaveAdmin = () => {
 
   // search
   const handleSearch = (e) => {
-    const records = leaves.filter((emp) =>
-      emp.name.toLowerCase().includes(e.target.value.toLowerCase())
+    const data = leaves.filter((leave) =>
+      leave.employeeId.toLowerCase().includes(e.target.value.toLowerCase())
     );
-    setFilteredLeaves(records);
+    setFilteredLeaves(data);
   };
 
   return (
