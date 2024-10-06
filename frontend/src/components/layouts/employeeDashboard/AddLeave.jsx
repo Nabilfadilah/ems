@@ -35,7 +35,7 @@ const AddLeave = () => {
       );
       ModalAdd();
       if (response.data.success) {
-        navigate("/employee-dashboard/leaves");
+        navigate(`/employee-dashboard/leaves/${user._id}`);
       }
     } catch (error) {
       if (error.response && !error.response.data.success) {
@@ -48,7 +48,7 @@ const AddLeave = () => {
     <div className="max-w-6xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md">
       <div className="flex justify-between items-center mb-6">
         <Typography className="text-xl font-bold">Request for Leave</Typography>
-        <Link to="/employee-dashboard/leaves">
+        <Link to={`/employee-dashboard/leaves/${user._id}`}>
           <Button className="bg-gray-700 hover:bg-gray-600 text-white flex items-center gap-1">
             <IoMdArrowBack strokeWidth={2} className="h-4 w-4" /> Back
           </Button>
