@@ -48,7 +48,7 @@ const EmployeeSidebar = () => {
 
         {/* leaves */}
         <NavLink
-          to="/employee-dashboard/leaves"
+          to={`/employee-dashboard/leaves/${user._id}`}
           className={({ isActive }) =>
             `${
               isActive ? "bg-teal-900" : "hover:bg-teal-800"
