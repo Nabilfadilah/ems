@@ -40,6 +40,26 @@ export const columns = [
     name: "Status",
     selector: (row) => row.status,
     with: "120px",
+    cell: (row) => (
+      <div
+        style={{
+          backgroundColor:
+            row.status === "Approved"
+              ? "#4CAF50" // Hijau untuk Approved
+              : row.status === "Pending"
+              ? "#FFC107" // Kuning untuk Pending
+              : "#F44336", // Merah untuk Rejected
+          color: "white",
+          padding: "8px 16px",
+          borderRadius: "4px",
+          textAlign: "center",
+          cursor: "pointer",
+          fontWeight: "bold",
+        }}
+      >
+        {row.status}
+      </div>
+    ),
   },
   {
     name: "Action",
