@@ -13,10 +13,13 @@ const LeaveList = () => {
   const { user } = useAuth();
   let sno = 1;
 
+  // untuk menghubungkan halaman leave admin
+  const { id } = useParams();
+
   const fetchLeaves = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/leave/${user._id}`,
+        `http://localhost:5000/api/leave/${id}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -63,9 +66,12 @@ const LeaveList = () => {
               placeholder="Seacrh By Dep Name"
               onChange={handleSearch}
             />
-            <Button className="px-4 py-1 bg-green-800 hover:bg-green-700 text-white font-bold">
-              <Link to="/employee-dashboard/add-leave">Add New</Link>
-            </Button>
+
+            {user.role === "employee" && ( // Kondisi untuk hanya menampilkan button jika user adalah admin
+              <Button className="px-4 py-1 bg-green-800 hover:bg-green-700 text-white font-bold">
+                <Link to="/employee-dashboard/add-leave">Add New</Link>
+              </Button>
+            )}
           </div>
 
           <div className="mt-5">
