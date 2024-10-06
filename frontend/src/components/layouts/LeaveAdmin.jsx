@@ -60,6 +60,14 @@ const LeaveAdmin = () => {
     setFilteredLeaves(data);
   };
 
+  // filter status
+  const filterByButton = (status) => {
+    const data = leaves.filter((leave) =>
+      leave.status.toLowerCase().includes(status.toLowerCase())
+    );
+    setFilteredLeaves(data);
+  };
+
   return (
     <>
       {filteredLeaves === null ? (
@@ -75,13 +83,28 @@ const LeaveAdmin = () => {
               onChange={handleSearch}
             />
             <div className="space-x-2">
-              <Button className="px-4 py-1 bg-green-800 hover:bg-green-700 text-white font-bold">
+              <Button
+                className="px-4 py-1 bg-gray-800 hover:bg-gray-700 text-white font-bold"
+                onClick={() => filterByButton("")}
+              >
+                Semua
+              </Button>
+              <Button
+                className="px-4 py-1 bg-yellow-500 hover:bg-yellow-400 text-white font-bold"
+                onClick={() => filterByButton("Pending")}
+              >
                 Pending
               </Button>
-              <Button className="px-4 py-1 bg-green-800 hover:bg-green-700 text-white font-bold">
+              <Button
+                className="px-4 py-1 bg-green-800 hover:bg-green-700 text-white font-bold"
+                onClick={() => filterByButton("Approved")}
+              >
                 Approved
               </Button>
-              <Button className="px-4 py-1 bg-green-800 hover:bg-green-700 text-white font-bold">
+              <Button
+                className="px-4 py-1 bg-red-800 hover:bg-red-700 text-white font-bold"
+                onClick={() => filterByButton("Rejected")}
+              >
                 Rejected
               </Button>
             </div>
