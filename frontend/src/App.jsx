@@ -83,6 +83,12 @@ function App() {
             path="/admin-dashboard/employee/salary/:id"
             element={<SalaryEmployee />}
           />
+
+          {/* route setting */}
+          <Route
+            path="/admin-dashboard/setting"
+            element={<SettingEmployee />}
+          />
         </Route>
 
         {/* route khusus employee */}
