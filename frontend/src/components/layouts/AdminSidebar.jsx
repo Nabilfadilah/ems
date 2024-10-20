@@ -7,89 +7,125 @@ import {
   FaMoneyBillWave,
   FaTachometerAlt,
   FaUser,
+  FaChevronLeft,
+  FaChevronRight,
 } from "react-icons/fa";
 import Typography from "../elements/text/Typography";
+import emsLogo from "../../assets/img/emsLogo.png";
 
-const AdminSidebar = () => {
+const AdminSidebar = ({ isOpen, toggleSidebar }) => {
   return (
-    <div className="bg-gray-800 text-white h-screen fixed left-0 top-0 bottom-0 space-y-2 w-64">
-      <div className="bg-teal-900 h-12 flex items-center justify-center">
-        <Typography className="text-2xl text-center">Employee MS</Typography>
+    <div
+      className={`${
+        isOpen ? "w-56" : "w-20"
+      } bg-cyan-950 text-white h-screen fixed top-0 bottom-0 transition-all duration-300 rounded-e-xl`}
+    >
+      <div className="bg-cyan-950 h-20 flex items-center justify-between px-5">
+        <img
+          src={emsLogo}
+          className={`cursor-pointer duration-500 w-10 h-10 ${
+            open && "rotate-[360deg]"
+          }`}
+        />
+        <Typography
+          className={`${isOpen ? "text-lg" : "hidden"} text-center font-bold`}
+        >
+          Managemen Karyawan
+        </Typography>
+        <button onClick={toggleSidebar} className="text-white">
+          {isOpen ? <FaChevronLeft /> : <FaChevronRight />}
+        </button>
       </div>
-      <div className="px-4">
-        {/* dashboard */}
+
+      {/* Links */}
+      <div className="px-4 mt-4">
+        {/* Dashboard */}
         <NavLink
           to="/admin-dashboard"
           className={({ isActive }) =>
             `${
-              isActive ? "bg-teal-900 " : "hover:bg-teal-800"
-            } flex items-center space-x-4 py-2.5 px-4 rounded`
+              isActive ? "bg-cyan-900" : "hover:bg-cyan-800"
+            } flex items-center space-x-4 py-2.5 px-4 rounded transition-all duration-200 mb-2`
           }
           end
         >
           <FaTachometerAlt />
-          <Typography>Dashboard</Typography>
+          <Typography className={`${!isOpen && "hidden"}`}>
+            Dashboard
+          </Typography>
         </NavLink>
 
-        {/* employee */}
+        {/* Employee */}
         <NavLink
           to="/admin-dashboard/employees"
           className={({ isActive }) =>
             `${
-              isActive ? "bg-teal-900" : "hover:bg-teal-800"
-            } flex items-center space-x-4 py-2.5 px-4 rounded`
+              isActive ? "bg-cyan-900" : "hover:bg-cyan-800"
+            } flex items-center space-x-4 py-2.5 px-4 rounded mb-2`
           }
         >
           <FaUser />
-          <Typography>Employee</Typography>
+          <Typography className={`${!isOpen && "hidden"}`}>Karyawan</Typography>
         </NavLink>
 
-        {/* department */}
+        {/* Department */}
         <NavLink
           to="/admin-dashboard/departments"
           className={({ isActive }) =>
             `${
-              isActive ? "bg-teal-900" : "hover:bg-teal-800"
-            } flex items-center space-x-4 py-2.5 px-4 rounded`
+              isActive ? "bg-cyan-900" : "hover:bg-cyan-800"
+            } flex items-center space-x-4 py-2.5 px-4 rounded mb-2`
           }
         >
           <FaBuilding />
-          <Typography>Department</Typography>
+          <Typography className={`${!isOpen && "hidden"}`}>
+            Departemen
+          </Typography>
         </NavLink>
 
-        {/* leave */}
+        {/* Leave */}
         <NavLink
           to="/admin-dashboard/leaves"
           className={({ isActive }) =>
             `${
-              isActive ? "bg-teal-900" : "hover:bg-teal-800"
-            } flex items-center space-x-4 py-2.5 px-4 rounded`
+              isActive ? "bg-cyan-900" : "hover:bg-cyan-800"
+            } flex items-center space-x-4 py-2.5 px-4 rounded mb-2`
           }
         >
           <FaCalendarAlt />
-          <Typography>Leave</Typography>
+          <Typography className={`${!isOpen && "hidden"}`}>
+            Cuti Karyawan
+          </Typography>
         </NavLink>
 
-        {/* salary */}
+        {/* Salary */}
         <NavLink
           to="/admin-dashboard/salary"
           className={({ isActive }) =>
             `${
-              isActive ? "bg-teal-900" : "hover:bg-teal-800"
-            } flex items-center space-x-4 py-2.5 px-4 rounded`
+              isActive ? "bg-cyan-900" : "hover:bg-cyan-800"
+            } flex items-center space-x-4 py-2.5 px-4 rounded mb-2`
           }
         >
           <FaMoneyBillWave />
-          <Typography>Salary</Typography>
+          <Typography className={`${!isOpen && "hidden"}`}>
+            Gaji Karyawan
+          </Typography>
         </NavLink>
 
-        {/* settings */}
+        {/* Settings */}
         <NavLink
           to="/admin-dashboard/setting"
-          className="flex items-center space-x-4 py-2.5 px-4 rounded"
+          className={({ isActive }) =>
+            `${
+              isActive ? "bg-cyan-900" : "hover:bg-cyan-800"
+            } flex items-center space-x-4 py-2.5 px-4 rounded`
+          }
         >
           <FaCogs />
-          <Typography>Settings</Typography>
+          <Typography className={`${!isOpen && "hidden"}`}>
+            Pengaturan
+          </Typography>
         </NavLink>
       </div>
     </div>
