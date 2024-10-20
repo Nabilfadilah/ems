@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { columns, EmployeeButtons } from "../../utils/EmployeeHelper";
 import DataTable from "react-data-table-component";
 import axios from "axios";
+import { FaRegPlusSquare } from "react-icons/fa";
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -28,10 +29,9 @@ const EmployeeList = () => {
         });
         console.log(response.data);
         if (response.data.success) {
-          let sno = 1;
-          const data = await response.data.employees.map((emp) => ({
+          const data = response.data.employees.map((emp, index) => ({
             _id: emp._id,
-            sno: sno++,
+            sno: `${index + 1}.`,
             name: emp.userId.name,
             // profileImage: emp.userId.profileImage,
             profileImage: (
@@ -67,10 +67,22 @@ const EmployeeList = () => {
 
   // search
   const handleSearch = (e) => {
+    // const records = employees.filter((emp) =>
+    //   emp.name.toLowerCase().includes(e.target.value.toLowerCase())
+    // );
+    const searchTerm = e.target.value.toLowerCase();
+
+    // Filter employees berdasarkan search term
     const records = employees.filter((emp) =>
-      emp.name.toLowerCase().includes(e.target.value.toLowerCase())
+      emp.name.toLowerCase().includes(searchTerm)
     );
-    setFilteredEmployees(records);
+
+    // Update nomor urut setelah filter
+    const updatedRecords = records.map((emp, index) => ({
+      ...emp,
+      sno: `${index + 1}.`, // Tetap menjaga nomor urut dengan titik
+    }));
+    setFilteredEmployees(updatedRecords);
   };
 
   return (
@@ -78,24 +90,35 @@ const EmployeeList = () => {
       {emLoading ? (
         <div className="text-center p-80">Loading...</div>
       ) : (
-        <div className="p-5">
+        <div className="">
           <div className="text-center">
             <Typography className="text-2xl font-bold">
-              Manage Employess
+              Kelola Karyawan
             </Typography>
           </div>
           <div className="flex justify-between items-center">
             <InputSeacrh
-              placeholder="Seacrh By Dep Name"
+              placeholder="Cara berdasarkan nama"
               onChange={handleSearch}
             />
-            <Button className="px-4 py-1 bg-green-800 hover:bg-green-700 text-white font-bold">
-              <Link to="/admin-dashboard/add-employee">Add New</Link>
-            </Button>
+            <Link to="/admin-dashboard/add-employee">
+              <Button className="bg-green-800 hover:bg-green-700 text-white font-bold flex items-center gap-2 shadow-lg">
+                <FaRegPlusSquare strokeWidth={2} className="h-4 w-4" /> Tambah
+              </Button>
+            </Link>
           </div>
 
-          <div className="mt-5">
-            <DataTable columns={columns} data={filteredEmployees} pagination />
+          <div className="table-container overflow-x-auto mt-5 shadow-2xl">
+            <DataTable
+              columns={columns}
+              data={filteredEmployees}
+              pagination
+              responsive
+              highlightOnHover
+              striped
+              dense
+              customStyles={customStyles} // Menerapkan gaya khusus
+            />
           </div>
         </div>
       )}{" "}
@@ -104,3 +127,19 @@ const EmployeeList = () => {
 };
 
 export default EmployeeList;
+
+const customStyles = {
+  headCells: {
+    style: {
+      backgroundColor: "#1f2937", // Warna gelap untuk header
+      color: "#ffffff", // Warna teks header
+      fontWeight: "bold", // Menjadikan teks header lebih tebal
+      // borderBottom: "2px solid #d1d5db", // Garis pembatas bawah header
+    },
+  },
+  cells: {
+    style: {
+      // borderRight: "1px solid #d1d5db", // Garis pembatas antar kolom
+    },
+  },
+};
