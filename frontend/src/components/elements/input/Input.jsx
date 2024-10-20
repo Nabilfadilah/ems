@@ -9,6 +9,9 @@ const Input = forwardRef((props, ref) => {
     onChange,
     value,
     accept,
+    onBlur,
+    error,
+    helperText,
   } = props; // Set default class w-80
 
   return (
@@ -20,9 +23,12 @@ const Input = forwardRef((props, ref) => {
       id={name}
       ref={ref}
       onChange={onChange}
-      required
+      // required
       value={value}
       accept={accept}
+      onBlur={onBlur}
+      error={error}
+      helperText={helperText}
     />
   );
 });
