@@ -5,7 +5,7 @@ import Navbar from "../components/layouts/Navbar";
 import { Outlet } from "react-router-dom";
 
 const AdminDashboard = () => {
-  const { user } = useAuth;
+  const { user } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const handleSidebarToggle = () => {
@@ -13,8 +13,8 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="flex">
-      {/* Pass state and handler to AdminSidebar */}
+    <div className="flex h-screen overflow-hidden">
+      {/* Sidebar */}
       <AdminSidebar
         isOpen={isSidebarOpen}
         toggleSidebar={handleSidebarToggle}
@@ -22,12 +22,16 @@ const AdminDashboard = () => {
 
       {/* Konten Utama */}
       <div
-        className={`flex-1 transition-all duration-300 ${
+        className={`flex-1 flex flex-col transition-all duration-300 ${
           isSidebarOpen ? "ml-56" : "ml-20"
-        } bg-gray-100 h-screen`}
+        } bg-gray-100 overflow-y-auto`}
       >
         <Navbar />
-        <Outlet />
+
+        {/* Wrapper for page content to ensure proper scrolling */}
+        <div className="flex-1 overflow-x-auto p-5">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
