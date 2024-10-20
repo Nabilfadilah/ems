@@ -3,6 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import Typography from "../elements/text/Typography";
 import Button from "../elements/button/Button";
 import ModalLogout from "../elements/popup/ModalLogout";
+import { MdLogout } from "react-icons/md";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -12,13 +13,17 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex items-center text-white justify-between h-12 bg-teal-900 px-5">
-      <Typography> Selamat Datang, {user.name}</Typography>
+    <div className="flex items-center text-white justify-between h-12 bg-cyan-950 px-5">
+      <Typography className="px-1">
+        {" "}
+        Selamat Datang, <b>{user.name}</b>
+      </Typography>
       <Button
-        className="bg-gray-800 hover:bg-gray-700 font-bold"
+        className="bg-gray-200 hover:bg-gray-300 font-bold text-black flex items-center space-x-2 px-4 py-2"
         onClick={handleLogout}
       >
-        Logout
+        <MdLogout />
+        <span>Logout</span>
       </Button>
     </div>
   );
