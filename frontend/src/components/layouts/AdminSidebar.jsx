@@ -50,7 +50,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
           end
         >
           <FaTachometerAlt />
-          <Typography className={`${!isOpen && "hidden"}`}>
+          <Typography className={`${!isOpen && "hidden"} text-sm`}>
             Dashboard
           </Typography>
         </NavLink>
@@ -65,7 +65,9 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
           }
         >
           <FaUser />
-          <Typography className={`${!isOpen && "hidden"}`}>Karyawan</Typography>
+          <Typography className={`${!isOpen && "hidden"} text-sm`}>
+            Karyawan
+          </Typography>
         </NavLink>
 
         {/* Department */}
@@ -78,7 +80,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
           }
         >
           <FaBuilding />
-          <Typography className={`${!isOpen && "hidden"}`}>
+          <Typography className={`${!isOpen && "hidden"} text-sm`}>
             Departemen
           </Typography>
         </NavLink>
@@ -93,7 +95,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
           }
         >
           <FaCalendarAlt />
-          <Typography className={`${!isOpen && "hidden"}`}>
+          <Typography className={`${!isOpen && "hidden"} text-sm`}>
             Cuti Karyawan
           </Typography>
         </NavLink>
@@ -108,7 +110,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
           }
         >
           <FaMoneyBillWave />
-          <Typography className={`${!isOpen && "hidden"}`}>
+          <Typography className={`${!isOpen && "hidden"} text-sm`}>
             Gaji Karyawan
           </Typography>
         </NavLink>
@@ -119,7 +121,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
           className={({ isActive }) =>
             `${
               isActive ? "bg-cyan-900" : "hover:bg-cyan-800"
-            } flex items-center space-x-4 py-2.5 px-4 rounded`
+            } flex items-center space-x-4 py-2.5 px-4 rounded text-sm`
           }
         >
           <FaCogs />
