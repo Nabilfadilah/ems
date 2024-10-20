@@ -100,9 +100,10 @@ const EmployeeList = () => {
             <InputSeacrh
               placeholder="Cara berdasarkan nama"
               onChange={handleSearch}
+              className="shadow-xl"
             />
             <Link to="/admin-dashboard/add-employee">
-              <Button className="bg-green-800 hover:bg-green-700 text-white font-bold flex items-center gap-2 shadow-lg">
+              <Button className="bg-green-800 hover:bg-green-700 text-white font-bold flex items-center gap-2 shadow-xl">
                 <FaRegPlusSquare strokeWidth={2} className="h-4 w-4" /> Tambah
               </Button>
             </Link>
