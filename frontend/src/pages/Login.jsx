@@ -3,95 +3,120 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import ModalLogin from "../components/elements/popup/ModalLogin";
+import Form from "../components/elements/form/Form";
+import InputForm from "../components/elements/input/InputForm";
+import Button from "../components/elements/button/Button";
+import Typography from "../components/elements/text/Typography";
+import bgLogin from "../assets/img/bgLogin.jpg";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+
+// validasi login
+const validationSchema = Yup.object({
+  email: Yup.string()
+    .email("Alamat email salah")
+    .required("Email harus diisi."),
+  password: Yup.string()
+    .min(5, "Password minimal harus 5 karakter")
+    .required("Password harus diisi."),
+});
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        { email, password }
-      );
-      if (response.data.success) {
-        login(response.data.user);
-        // console.log(response.data.user);
-        localStorage.setItem("token", response.data.token);
-        if (response.data.user.role === "admin") {
-          navigate("/admin-dashboard");
-        } else {
-          navigate("/employee-dashboard");
+  // formik setup
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/api/auth/login",
+          values // gunakan formik values untuk mengirim email dan password
+        );
+        if (response.data.success) {
+          login(response.data.user);
+          localStorage.setItem("token", response.data.token);
+          if (response.data.user.role === "admin") {
+            navigate("/admin-dashboard");
+          } else {
+            navigate("/employee-dashboard");
+          }
+          ModalLogin();
         }
-        ModalLogin();
-        // alert("Successfully login");
+      } catch (error) {
+        if (error.response && !error.response.data.success) {
+          setError(error.response.data.error);
+        } else {
+          setError("Server Error");
+        }
       }
-      //   console.log(response);
-    } catch (error) {
-      if (error.response && !error.response.data.success) {
-        setError(error.response.data.error);
-      } else {
-        setError("Server Error");
-      }
-      //   console.log(error);
-    }
-  };
+    },
+  });
 
   return (
-    <div className="flex flex-col items-center h-screen justify-center bg-gray-500 space-y-6">
-      <h2 className="text-3xl font-poppins font-extrabold">
-        Employee Management System
-      </h2>
-      <div className="border shadow p-6 w-80 bg-gray-200">
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
-        {error && <p className="text-red-500">{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              className="w-full px-3 py-2 border"
-              placeholder="Enter Email"
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="password" className="block text-gray-700">
-              Password
-            </label>
-            <input
-              type="password"
-              className="w-full px-3 py-2 border"
-              placeholder="*********"
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4 flex items-center justify-between">
-            <label className="inline-flex items-center">
-              <input type="checkbox" className="form-checkbox" />
-              <span className="ml-2 text-gray-700">Rememder me</span>
-            </label>
-            <a href="#" className="text-teal-600">
-              Forgot Password?
-            </a>
-          </div>
-          <div className="mb-4">
-            <button
-              type="submit"
-              className="w-full bg-teal-600 text-white py-2"
-            >
-              Login
-            </button>
-          </div>
-        </form>
+    <div className="flex flex-col md:flex-row h-screen">
+      {/* bagian kanan, gambar */}
+      <div className="w-full md:w-1/2 h-1/2 md:h-full">
+        <img src={bgLogin} alt="Placeholder" className="w-auto h-auto mt-10" />
+      </div>
+
+      {/* bagian kiri, form login */}
+      <div className="flex items-center justify-center w-full md:w-1/2 bg-gray-300 p-8">
+        <div className="border shadow p-6 w-96 bg-white">
+          <Typography className="text-2xl mb-4 font-poppins font-extrabold text-center">
+            Employee Management System
+          </Typography>
+          {/* <h2 className="text-2xl font-bold mb-4">Login</h2> */}
+          {error && <p className="text-red-500">{error}</p>}
+          <Form onSubmit={formik.handleSubmit}>
+            <div className="mb-4">
+              <InputForm
+                type="email"
+                label="Email"
+                className="w-full px-3 py-2 border"
+                placeholder="Enter Email"
+                name="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.email && formik.errors.email ? (
+                <p className="text-red-500">{formik.errors.email}</p>
+              ) : null}
+            </div>
+            <div>
+              <InputForm
+                type="password"
+                label="Password"
+                className="w-full px-3 py-2 border"
+                placeholder="*********"
+                name="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur} // handle blur untuk validasi
+              />
+              {formik.touched.password && formik.errors.password ? (
+                <p className="text-red-500 pt-0">{formik.errors.password}</p>
+              ) : null}
+            </div>
+
+            <div className="mb-4 mt-8">
+              <Button
+                type="submit"
+                className="w-full bg-teal-600 text-white font-bold"
+                disabled={formik.isSubmitting}
+              >
+                Login
+              </Button>
+            </div>
+          </Form>
+        </div>
       </div>
     </div>
   );
