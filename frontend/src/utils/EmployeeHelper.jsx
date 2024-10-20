@@ -50,32 +50,34 @@ export const getEmployees = async (id) => {
 // tabel employee
 export const columns = [
   {
-    name: "S No",
+    name: "No.",
     selector: (row) => row.sno,
     width: "70px",
   },
   {
-    name: "Name",
+    name: "Nama",
     selector: (row) => row.name,
     sortable: true,
     width: "180px",
   },
   {
-    name: "Image",
+    name: "Gambar",
     selector: (row) => row.profileImage,
-    width: "130px",
+    width: "170px",
   },
   {
-    name: "Department",
+    name: "Departemen",
     selector: (row) => row.dep_name,
+    width: "170px",
   },
   {
-    name: "DOB",
+    name: "Tanggal Lahir",
     selector: (row) => row.dob,
     sortable: true,
+    width: "170px",
   },
   {
-    name: "Action",
+    name: "Aksi",
     selector: (row) => row.action,
     center: "true",
   },
@@ -83,6 +85,7 @@ export const columns = [
 
 export const EmployeeButtons = ({ _id }) => {
   const navigate = useNavigate();
+
   return (
     <div className="flex space-x-4">
       {/* view */}
@@ -90,7 +93,7 @@ export const EmployeeButtons = ({ _id }) => {
         className="bg-blue-800 text-white"
         onClick={() => navigate(`/admin-dashboard/employee/${_id}`)}
       >
-        View
+        Detail
       </Button>
 
       {/* edit */}
@@ -98,7 +101,7 @@ export const EmployeeButtons = ({ _id }) => {
         className="bg-green-800 text-white"
         onClick={() => navigate(`/admin-dashboard/employee/edit/${_id}`)}
       >
-        Edit
+        Ubah
       </Button>
 
       {/* salary */}
@@ -106,7 +109,7 @@ export const EmployeeButtons = ({ _id }) => {
         className="bg-yellow-700 text-white"
         onClick={() => navigate(`/admin-dashboard/employee/salary/${_id}`)}
       >
-        Salary
+        Gaji
       </Button>
 
       {/* leave */}
@@ -114,7 +117,7 @@ export const EmployeeButtons = ({ _id }) => {
         className="bg-red-700 text-white"
         onClick={() => navigate(`/admin-dashboard/employee/leaves/${_id}`)}
       >
-        Leave
+        Cuti
       </Button>
     </div>
   );
