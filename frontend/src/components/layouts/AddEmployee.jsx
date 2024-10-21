@@ -10,6 +10,7 @@ import axios from "axios";
 import ModalAdd from "../../components/elements/popup/ModalAdd";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import CurrencyInput from "react-currency-input-field";
 
 // validasi login
 const validationAdd = Yup.object({
@@ -106,8 +107,8 @@ const AddEmployee = () => {
           Tambah Data Karyawan
         </Typography>
         <Link to="/admin-dashboard/employees">
-          <Button className="bg-gray-700 hover:bg-gray-600 text-white flex items-center gap-1">
-            <IoMdArrowBack strokeWidth={2} className="h-4 w-4" /> Back
+          <Button className="bg-gray-700 hover:bg-gray-600 text-white flex items-center gap-1 shadow-xl font-bold">
+            <IoMdArrowBack strokeWidth={2} className="h-4 w-4" /> Kembali
           </Button>
         </Link>
       </div>
@@ -299,18 +300,20 @@ const AddEmployee = () => {
 
           {/* salary */}
           <div>
-            <InputForm
-              className={`w-full border ${
+            <Label>Gaji Perbulan</Label>
+            <CurrencyInput
+              id="salary"
+              name="salary"
+              className={`mt-1 p-2 block w-full border rounded-md ${
                 formik.touched.salary && formik.errors.salary
                   ? "border-red-500"
                   : "border-gray-400"
               }`}
-              name="salary"
-              label="Gaji Perbulan"
-              type="text"
-              placeholder="John Doe"
+              placeholder="Rp. 0"
+              prefix="Rp. "
+              decimalsLimit={0} // Set to 0 for no decimal places
               value={formik.values.salary}
-              onChange={formik.handleChange}
+              onValueChange={(value) => formik.setFieldValue("salary", value)}
               onBlur={formik.handleBlur}
             />
             {/* {formik.touched.salary && formik.errors.salary ? (
