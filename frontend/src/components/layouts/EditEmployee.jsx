@@ -8,20 +8,34 @@ import { IoMdArrowBack } from "react-icons/io";
 import { fetchDepartments } from "../../utils/EmployeeHelper";
 import axios from "axios";
 import ModalEdit from "../../components/elements/popup/ModalEdit";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import CurrencyInput from "react-currency-input-field";
+
+// validasi yup
+const validationSchema = Yup.object().shape({
+  name: Yup.string().required("Nama wajib diisi"),
+  maritalStatus: Yup.string().required("Status pernikahan wajib diisi"),
+  designation: Yup.string().required("Jabatan wajib diisi"),
+  salary: Yup.number()
+    .required("Gaji wajib diisi")
+    .min(0, "Gaji harus lebih besar atau sama dengan 0"),
+  department: Yup.string().required("Department wajib dipilih"),
+});
 
 const EditEmployee = () => {
-  const [employee, setEmployee] = useState({
-    name: "",
-    maritalStatus: "",
-    designation: "",
-    salary: 0,
-    department: "",
-  });
-  // const [employee, setEmployee] = useState(null);
-  const [departments, setDepartments] = useState(null);
+  // const [employee, setEmployee] = useState({
+  //   name: "",
+  //   maritalStatus: "",
+  //   designation: "",
+  //   salary: 0,
+  //   department: "",
+  // });
+  const [departments, setDepartments] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
 
+  // Fetch department data
   useEffect(() => {
     const getDepartments = async () => {
       const departments = await fetchDepartments();
@@ -30,6 +44,7 @@ const EditEmployee = () => {
     getDepartments();
   }, []);
 
+  // Fetch employee data
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
@@ -44,14 +59,13 @@ const EditEmployee = () => {
         console.log("Employee Data Edit:", response.data);
         if (response.data.success) {
           const employee = response.data.employee;
-          setEmployee((prev) => ({
-            ...prev,
+          formik.setValues({
             name: employee.userId.name,
             maritalStatus: employee.maritalStatus,
             designation: employee.designation,
             salary: employee.salary,
-            department: employee.department,
-          }));
+            department: employee.department._id,
+          });
         }
       } catch (error) {
         if (error.response && !error.response.data.success) {
@@ -60,134 +74,93 @@ const EditEmployee = () => {
       }
     };
     fetchEmployee();
-  }, []);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEmployee((prevData) => ({ ...prevData, [name]: value }));
-  };
+  }, [id]);
 
   // const handleChange = (e) => {
   //   const { name, value } = e.target;
-  //   setEmployee({ ...employee, [name]: value });
+  //   setEmployee((prevData) => ({ ...prevData, [name]: value }));
   // };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.put(
-        `http://localhost:5000/api/employee/${id}`,
-        employee,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
+  // Setup Formik
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      maritalStatus: "",
+      designation: "",
+      salary: 0,
+      department: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.put(
+          `http://localhost:5000/api/employee/${id}`,
+          values,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        ModalEdit();
+        if (response.data.success) {
+          navigate("/admin-dashboard/employees");
         }
-      );
-      ModalEdit();
-      if (response.data.success) {
-        navigate("/admin-dashboard/employees");
+      } catch (error) {
+        if (error.response && !error.response.data.success) {
+          alert(error.response.data.error);
+        }
       }
-    } catch (error) {
-      if (error.response && !error.response.data.success) {
-        alert(error.response.data.error);
-      }
-    }
-  };
+    },
+  });
 
   return (
     <>
-      {departments && employee ? (
-        <div className="max-w-6xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md">
+      {departments.length > 0 ? (
+        <div className="max-w-6xl mx-auto bg-white p-8 rounded-md shadow-2xl">
           <div className="flex justify-between items-center mb-6">
-            <Typography className="text-xl font-bold">Edit Employee</Typography>
+            <Typography className="text-xl font-bold">
+              Ubah Data Karyawan
+            </Typography>
             <Link to="/admin-dashboard/employees">
-              <Button className="bg-gray-700 hover:bg-gray-600 text-white flex items-center gap-1">
-                <IoMdArrowBack strokeWidth={2} className="h-4 w-4" /> Back
+              <Button className="bg-gray-700 hover:bg-gray-600 text-white flex items-center gap-1 shadow-xl font-bold">
+                <IoMdArrowBack strokeWidth={2} className="h-4 w-4" /> Kembali
               </Button>
             </Link>
           </div>
-          <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form onSubmit={formik.handleSubmit}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               {/* name */}
               <div>
                 <InputForm
-                  className="w-full"
+                  className={`mt-1 p-2 block w-full border rounded-md ${
+                    formik.touched.name && formik.errors.name
+                      ? "border-red-500"
+                      : "border-gray-400"
+                  }`}
                   name="name"
-                  label="Name"
+                  label="Nama Karyawan"
                   type="text"
                   placeholder="John Doe"
-                  required
-                  onChange={handleChange}
-                  value={employee.name}
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
               </div>
 
-              {/* email */}
-              {/* <div>
-            <InputForm
-              className="w-full"
-              name="email"
-              label="Email"
-              type="email"
-              placeholder="John Doe"
-              required
-              onChange={handleChange}
-              disable
-            />
-          </div> */}
-
-              {/* employee id */}
-              {/* <div>
-            <InputForm
-              className="w-full"
-              name="employeeId"
-              label="Employee ID"
-              type="text"
-              placeholder="John Doe"
-              required
-              onChange={handleChange}
-            />
-          </div> */}
-
-              {/* date birth */}
-              {/* <div>
-            <InputForm
-              className="w-full"
-              name="dob"
-              label="Date of Birth"
-              type="date"
-              placeholder="John Doe"
-              required
-              onChange={handleChange}
-            />
-          </div> */}
-
-              {/* gender */}
-              {/* <div>
-            <Label>Gender</Label>
-            <select
-              name="gender"
-              className="mt-1 p-2 block w-full border border-gray-400 rounded-md"
-              required
-              onChange={handleChange}
-            >
-              <option value="">Select Gender</option>
-              <option value="male">Mele</option>
-              <option value="famele">Famale</option>
-            </select>
-          </div> */}
-
               {/* marital status */}
               <div>
-                <Label>Marital Status</Label>
+                <Label>Status Pernikahan</Label>
                 <select
                   name="maritalStatus"
-                  className="mt-1 p-2 block w-full border border-gray-400 rounded-md"
-                  required
-                  onChange={handleChange}
-                  value={employee.maritalStatus}
+                  className={`mt-1 p-2 block w-full border rounded-md ${
+                    formik.touched.maritalStatus && formik.errors.maritalStatus
+                      ? "border-red-500"
+                      : "border-gray-400"
+                  }`}
+                  value={formik.values.maritalStatus}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 >
                   <option value="">Select Gender</option>
                   <option value="single">Single</option>
@@ -198,40 +171,56 @@ const EditEmployee = () => {
               {/* designation */}
               <div>
                 <InputForm
-                  className="w-full"
+                  className={`mt-1 p-2 block w-full border rounded-md ${
+                    formik.touched.designation && formik.errors.designation
+                      ? "border-red-500"
+                      : "border-gray-400"
+                  }`}
                   name="designation"
-                  label="Designation"
+                  label="Penamaan Tugas"
                   type="text"
                   placeholder="John Doe"
-                  required
-                  onChange={handleChange}
-                  value={employee.designation}
+                  value={formik.values.designation}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
               </div>
 
               {/* salary */}
               <div>
-                <InputForm
-                  className="w-full"
+                <Label>Gaji Perbulan</Label>
+                <CurrencyInput
+                  id="salary"
                   name="salary"
-                  label="Salary"
-                  type="text"
-                  placeholder="John Doe"
-                  required
-                  onChange={handleChange}
-                  value={employee.salary}
+                  className={`mt-1 p-2 block w-full border rounded-md ${
+                    formik.touched.salary && formik.errors.salary
+                      ? "border-red-500"
+                      : "border-gray-400"
+                  }`}
+                  placeholder="Rp. 0"
+                  prefix="Rp. "
+                  decimalsLimit={0} // Set to 0 for no decimal places
+                  value={formik.values.salary}
+                  onValueChange={(value) =>
+                    formik.setFieldValue("salary", value)
+                  }
+                  onBlur={formik.handleBlur}
                 />
               </div>
 
               {/* department */}
               <div className="col-span-2">
-                <Label>Department</Label>
+                <Label>Departemen</Label>
                 <select
                   name="department"
-                  className="mt-1 p-2 block w-full border border-gray-400 rounded-md"
-                  required
-                  onChange={handleChange}
-                  value={departments.department}
+                  className={`mt-1 p-2 block w-full border rounded-md ${
+                    formik.touched.department && formik.errors.department
+                      ? "border-red-500"
+                      : "border-gray-400"
+                  }`}
+                  value={formik.values.department}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 >
                   <option value="">Select Department</option>
                   {departments.map((dep) => (
@@ -241,48 +230,6 @@ const EditEmployee = () => {
                   ))}
                 </select>
               </div>
-
-              {/* password */}
-              {/* <div>
-            <InputForm
-              className="w-full"
-              name="password"
-              label="Password"
-              type="password"
-              placeholder="********"
-              required
-              onChange={handleChange}
-            />
-          </div> */}
-
-              {/* role */}
-              {/* <div>
-            <Label>Role</Label>
-            <select
-              name="role"
-              className="mt-1 p-2 block w-full border border-gray-400 rounded-md"
-              required
-              onChange={handleChange}
-            >
-              <option value="">Select Role</option>
-              <option value="admin">Admin</option>
-              <option value="employee">Employee</option>
-            </select>
-          </div> */}
-
-              {/* image upload */}
-              {/* <div>
-            <InputForm
-              className="w-full"
-              name="image"
-              label="Upload Image"
-              type="file"
-              placeholder="********"
-              accept="image/*"
-              required
-              onChange={handleChange}
-            />
-          </div> */}
             </div>
 
             <div>
@@ -290,7 +237,7 @@ const EditEmployee = () => {
                 type="submit"
                 className="w-full bg-green-700 hover:bg-green-600 font-bold text-white h-8 mt-5"
               >
-                Edit Employee
+                Ubah Data
               </Button>
             </div>
           </form>
