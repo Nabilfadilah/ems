@@ -5,17 +5,19 @@ import ModalDelete from "../components/elements/popup/ModalDelete";
 
 export const columns = [
   {
-    name: "S No",
+    name: "No.",
     selector: (row) => row.sno,
+    width: "70px",
   },
   {
-    name: "Department Name",
+    name: "Nama Departemen",
     selector: (row) => row.dep_name,
-    sortable: true,
+    // sortable: true,
   },
   {
-    name: "Action",
+    name: "Aksi",
     selector: (row) => row.action,
+    center: "true",
   },
 ];
 
@@ -51,16 +53,16 @@ export const DepartmentButtons = ({ _id, onDepartmentDelete }) => {
   return (
     <div className="flex space-x-3">
       <Button
-        className="bg-green-800 text-white"
+        className="bg-green-800 text-white font-semibold"
         onClick={() => navigate(`/admin-dashboard/department/${_id}`)}
       >
-        Edit
+        Ubah
       </Button>
       <Button
-        className="bg-red-700 text-white"
+        className="bg-red-700 text-white font-semibold"
         onClick={() => handleDelete(_id)}
       >
-        Delete
+        Hapus
       </Button>
     </div>
   );
