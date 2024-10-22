@@ -11,7 +11,9 @@ const addSalary = async (req, res) => {
             deductions,
             payDate} = req.body
 
-        const totalSalary = parseInt(basicSalary) + parseInt(allowances) - parseInt(deductions)
+        const totalSalary = parseInt(basicSalary) + parseInt(allowances) - parseInt(deductions);
+        // const totalSalary = parseInt(basicSalary) + parseInt(allowances) + parseInt(deductions); 
+        console.log("Net Salary being calculated: ", totalSalary); // Tambahkan log ini
 
         const newSalary = new Salary({
             employeeId,
