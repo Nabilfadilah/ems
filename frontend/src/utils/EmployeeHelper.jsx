@@ -57,7 +57,7 @@ export const columns = [
   {
     name: "Nama",
     selector: (row) => row.name,
-    sortable: true,
+    // sortable: true,
     width: "180px",
   },
   {
@@ -73,7 +73,7 @@ export const columns = [
   {
     name: "Tanggal Lahir",
     selector: (row) => row.dob,
-    sortable: true,
+    // sortable: true,
     width: "170px",
   },
   {
@@ -90,7 +90,7 @@ export const EmployeeButtons = ({ _id }) => {
     <div className="flex space-x-4">
       {/* view */}
       <Button
-        className="bg-blue-800 text-white"
+        className="bg-blue-800 text-white font-semibold"
         onClick={() => navigate(`/admin-dashboard/employee/${_id}`)}
       >
         Detail
@@ -98,7 +98,7 @@ export const EmployeeButtons = ({ _id }) => {
 
       {/* edit */}
       <Button
-        className="bg-green-800 text-white"
+        className="bg-green-800 text-white font-semibold"
         onClick={() => navigate(`/admin-dashboard/employee/edit/${_id}`)}
       >
         Ubah
@@ -106,7 +106,7 @@ export const EmployeeButtons = ({ _id }) => {
 
       {/* salary */}
       <Button
-        className="bg-yellow-700 text-white"
+        className="bg-yellow-700 text-white font-semibold"
         onClick={() => navigate(`/admin-dashboard/employee/salary/${_id}`)}
       >
         Gaji
@@ -114,7 +114,7 @@ export const EmployeeButtons = ({ _id }) => {
 
       {/* leave */}
       <Button
-        className="bg-red-700 text-white"
+        className="bg-red-700 text-white font-semibold"
         onClick={() => navigate(`/admin-dashboard/employee/leaves/${_id}`)}
       >
         Cuti

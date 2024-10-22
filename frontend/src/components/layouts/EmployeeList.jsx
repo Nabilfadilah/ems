@@ -132,6 +132,9 @@ export default EmployeeList;
 const customStyles = {
   headCells: {
     style: {
+      paddingTop: "8px",
+      paddingBottom: "8px",
+      fontSize: "14px",
       backgroundColor: "#1f2937", // Warna gelap untuk header
       color: "#ffffff", // Warna teks header
       fontWeight: "bold", // Menjadikan teks header lebih tebal
@@ -140,6 +143,8 @@ const customStyles = {
   },
   cells: {
     style: {
+      paddingTop: "5px",
+      paddingBottom: "5px",
       // borderRight: "1px solid #d1d5db", // Garis pembatas antar kolom
     },
   },
