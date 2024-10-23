@@ -63,104 +63,110 @@ const ViewLeave = () => {
   return (
     <>
       {leave ? (
-        <div className="max-w-3xl mx-auto mt-10 bg-white p-8 rounded-md shadow-sm">
-          <div className="flex justify-between items-center mb-10">
-            <Typography className="text-2xl font-bold px-10">
-              Leave Details
+        <div className="max-w-3xl mx-auto bg-white p-8 rounded-md shadow-lg">
+          <div className="flex justify-between items-center mb-8">
+            <Typography className="text-2xl font-bold mx-9">
+              Detail Cuti Karyawan
             </Typography>
-
-            {user.role === "admin" && ( // Kondisi untuk hanya menampilkan button jika user adalah admin
+            {user.role === "admin" && (
               <Link to="/admin-dashboard/leaves">
-                <Button className="bg-gray-700 hover:bg-gray-600 text-white flex items-center gap-1">
-                  <IoMdArrowBack strokeWidth={2} className="h-4 w-4" /> Back
+                <Button className="bg-gray-700 hover:bg-gray-600 text-white flex items-center gap-2 py-2 px-4 rounded-lg">
+                  <IoMdArrowBack className="h-5 w-5" /> Kembali
                 </Button>
               </Link>
             )}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Profil Karyawan */}
+            <div className="flex flex-col items-center">
               {leave?.employeeId?.userId?.profileImage && (
                 <img
                   src={`http://localhost:5000/${leave.employeeId?.userId?.profileImage}`}
-                  className="rounded-full border w-72"
+                  className="rounded-full border-2 border-gray-300 w-40 h-40 mb-4"
+                  alt="Profile"
                 />
               )}
+              <Typography className="text-xl font-semibold text-gray-800">
+                {leave.employeeId?.userId?.name}
+              </Typography>
+              <Typography className="text-sm text-gray-600">
+                ID Karyawan: {leave.employeeId.employeeId}
+              </Typography>
             </div>
-            <div>
-              <div className="flex space-x-3 mb-5">
-                <Typography className="text-lg font-bold">Name:</Typography>
-                {leave?.employeeId?.userId?.name && (
-                  <Typography className="font-medium">
-                    {leave.employeeId?.userId?.name}
-                  </Typography>
-                )}
-              </div>
-              <div className="flex space-x-3 mb-5">
+
+            {/* Detail Cuti */}
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
                 <Typography className="text-lg font-bold">
-                  Employee ID:
+                  Jenis Cuti:
                 </Typography>
-                <Typography className="font-medium">
-                  {leave.employeeId.employeeId}
-                </Typography>
-              </div>
-              <div className="flex space-x-3 mb-5">
-                <Typography className="text-lg font-bold">
-                  Leave Type:
-                </Typography>
-                <Typography className="font-medium">
+                <Typography className="text-lg text-gray-700">
                   {leave.leaveType}
                 </Typography>
               </div>
-              <div className="flex space-x-3 mb-5">
-                <Typography className="text-lg font-bold">Reason:</Typography>
-                <Typography className="font-medium">{leave.reason}</Typography>
-              </div>
-              <div className="flex space-x-3 mb-5">
-                <Typography className="text-lg font-bold">
-                  Department:
+
+              <div className="flex justify-between items-center">
+                <Typography className="text-lg font-bold">Alasan:</Typography>
+                <Typography className="text-lg text-gray-700">
+                  {leave.reason}
                 </Typography>
-                {leave?.employeeId?.department?.dep_name && (
-                  <Typography className="font-medium">
-                    {leave.employeeId?.department?.dep_name}
-                  </Typography>
-                )}
               </div>
-              <div className="flex space-x-3 mb-5">
+
+              <div className="flex justify-between items-center">
                 <Typography className="text-lg font-bold">
-                  Start Date:
+                  Departemen:
                 </Typography>
-                <Typography className="font-medium">
+                <Typography className="text-lg text-gray-700">
+                  {leave.employeeId?.department?.dep_name || "N/A"}
+                </Typography>
+              </div>
+
+              <div className="flex justify-between items-center">
+                <Typography className="text-lg font-bold">
+                  Tanggal Mulai:
+                </Typography>
+                <Typography className="text-lg text-gray-700">
                   {new Date(leave.startDate).toLocaleDateString()}
                 </Typography>
               </div>
-              <div className="flex space-x-3 mb-5">
-                <Typography className="text-lg font-bold">End Date:</Typography>
-                <Typography className="font-medium">
+
+              <div className="flex justify-between items-center">
+                <Typography className="text-lg font-bold">
+                  Tanggal Akhir:
+                </Typography>
+                <Typography className="text-lg text-gray-700">
                   {new Date(leave.endDate).toLocaleDateString()}
                 </Typography>
               </div>
-              <div className="flex space-x-3 mb-5">
-                {/* <Typography className="text-lg font-bold">Status:</Typography> */}
-                <Typography className="font-medium">
-                  {leave.status === "Pending" ? "Action:" : "Status:"}
+
+              <div className="flex justify-between items-center">
+                <Typography className="text-lg font-bold">
+                  {leave.status === "Pending" ? "Aksi:" : "Status:"}
                 </Typography>
                 {leave.status === "Pending" ? (
-                  <div className="flex space-x-2">
+                  <div className="flex space-x-4">
                     <Button
-                      className="bg-green-700 hover:bg-green-600 text-white"
+                      className="bg-green-600 hover:bg-green-500 text-white font-semibold rounded-lg"
                       onClick={() => changeStatus(leave._id, "Approved")}
                     >
                       Approve
                     </Button>
                     <Button
-                      className="bg-red-700 hover:bg-red-600 text-white"
+                      className="bg-red-600 hover:bg-red-500 text-white font-semibold rounded-lg"
                       onClick={() => changeStatus(leave._id, "Rejected")}
                     >
                       Reject
                     </Button>
                   </div>
                 ) : (
-                  <Typography className="font-medium">
+                  <Typography
+                    className={`text-lg font-semibold ${
+                      leave.status === "Approved"
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
                     {leave.status}
                   </Typography>
                 )}
@@ -169,7 +175,9 @@ const ViewLeave = () => {
           </div>
         </div>
       ) : (
-        <div className="text-center p-80">Loading...</div> // or handle error message
+        <div className="text-center p-20">
+          <Typography className="text-lg text-gray-600">Loading...</Typography>
+        </div>
       )}
     </>
   );
