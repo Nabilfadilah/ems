@@ -6,6 +6,7 @@ import axios from "axios";
 import InputForm from "../../elements/input/InputForm";
 import Button from "../../elements/button/Button";
 import ModalEdit from "../../elements/popup/ModalEdit";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const SettingEmployee = () => {
   const navigate = useNavigate();
@@ -18,6 +19,11 @@ const SettingEmployee = () => {
     confirmPassword: "",
   });
 
+  // State untuk menyimpan status visibility masing-masing password field
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSetting({ ...setting, [name]: value });
@@ -26,7 +32,7 @@ const SettingEmployee = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (setting.newPassword !== setting.confirmPassword) {
-      setError("Password not matched");
+      setError("Password tidak sesuai");
     } else {
       try {
         const response = await axios.put(
@@ -40,8 +46,13 @@ const SettingEmployee = () => {
         );
         ModalEdit();
         if (response.data.success) {
-          navigate("/employee-dashboard");
-          setError("");
+          // Cek peran user, jika admin arahkan ke dashboard admin, jika employee ke dashboard employee
+          if (user.role === "admin") {
+            navigate("/admin-dashboard");
+          } else if (user.role === "employee") {
+            navigate("/employee-dashboard");
+          }
+          setError(""); // Reset error jika tidak ada masalah
         }
       } catch (error) {
         if (error.response && !error.response.data.success) {
@@ -52,54 +63,72 @@ const SettingEmployee = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md w-96">
+    <div className="max-w-3xl mx-auto bg-white p-8 rounded-md shadow-md w-full">
       <Typography className="text-2xl font-bold mb-6">
-        Change Password
+        Ubah Kata Sandi
       </Typography>
       <Typography className="text-red-500">{error}</Typography>
 
       <form onSubmit={handleSubmit}>
         {/*  old password */}
-        <div>
+        <div className="relative">
           <InputForm
-            type="password"
+            type={showOldPassword ? "text" : "password"}
             name="oldPassword"
-            label="Old Password"
-            placeholder="Change Password"
+            label="Password Lama"
+            placeholder="Masukan Password"
             onChange={handleChange}
             required
           />
+          <div
+            className="absolute right-3 top-10 cursor-pointer"
+            onClick={() => setShowOldPassword(!showOldPassword)}
+          >
+            {showOldPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+          </div>
         </div>
 
         {/*  new password */}
-        <div>
+        <div className="relative">
           <InputForm
-            type="password"
+            type={showNewPassword ? "text" : "password"}
             name="newPassword"
-            label="New Password"
-            placeholder="Change Password"
+            label="Password Baru"
+            placeholder="Masukan Password"
             onChange={handleChange}
             required
           />
+          <div
+            className="absolute right-3 top-10 cursor-pointer"
+            onClick={() => setShowNewPassword(!showNewPassword)}
+          >
+            {showNewPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+          </div>
         </div>
 
         {/*  confirm password */}
-        <div>
+        <div className="relative mb-4">
           <InputForm
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             name="confirmPassword"
-            label="Confirm Password"
-            placeholder="Change Password"
+            label="Konfirmasi Password"
+            placeholder="Masukan Password"
             onChange={handleChange}
             required
           />
+          <div
+            className="absolute right-3 top-10 cursor-pointer"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          >
+            {showConfirmPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+          </div>
         </div>
 
         <Button
           type="submit"
           className="w-full bg-green-700 hover:bg-green-600 font-bold text-white h-8 mt-5"
         >
-          Change Password
+          Ubah Password
         </Button>
       </form>
     </div>
