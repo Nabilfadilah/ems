@@ -6,33 +6,33 @@ import ModalDelete from "../components/elements/popup/ModalDelete";
 
 export const columns = [
   {
-    name: "S No",
+    name: "No.",
     selector: (row) => row.sno,
-    with: "70px",
+    with: "30px",
   },
   {
-    name: "Emp ID",
+    name: "ID Karyawan",
     selector: (row) => row.employeeId,
     sortable: true,
     with: "120px",
   },
   {
-    name: "Name",
+    name: "Nama Karyawan",
     selector: (row) => row.name,
     with: "120px",
   },
   {
-    name: "Leave Type",
+    name: "Tipe Cuti",
     selector: (row) => row.leaveType,
     with: "120px",
   },
   {
-    name: "Department",
+    name: "Departemen",
     selector: (row) => row.department,
     with: "120px",
   },
   {
-    name: "Days",
+    name: "Hari",
     selector: (row) => row.days,
     with: "120px",
   },
@@ -62,7 +62,7 @@ export const columns = [
     ),
   },
   {
-    name: "Action",
+    name: "Aksi",
     selector: (row) => row.action,
     center: true,
   },
@@ -78,7 +78,7 @@ export const LeaveButtons = ({ id }) => {
   return (
     <div className="flex space-x-3">
       <Button
-        className="bg-green-800 text-white"
+        className="bg-green-800 text-white font-semibold"
         onClick={() => handleView(id)}
       >
         View

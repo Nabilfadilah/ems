@@ -19,10 +19,9 @@ const LeaveAdmin = () => {
         },
       });
       if (response.data.success) {
-        let sno = 1;
-        const data = await response.data.leaves.map((leave) => ({
+        const data = await response.data.leaves.map((leave, index) => ({
           _id: leave._id,
-          sno: sno++,
+          sno: `${index + 1}.`,
           employeeId: leave.employeeId.employeeId,
           name: leave.employeeId.userId.name,
           leaveType: leave.leaveType,
@@ -55,17 +54,31 @@ const LeaveAdmin = () => {
   // search
   const handleSearch = (e) => {
     const data = leaves.filter((leave) =>
-      leave.employeeId.toLowerCase().includes(e.target.value.toLowerCase())
+      leave.name.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setFilteredLeaves(data);
   };
 
   // filter status
+  // const filterByButton = (status) => {
+  //   const data = leaves.filter((leave) =>
+  //     leave.status.toLowerCase().includes(status.toLowerCase())
+  //   );
+  //   setFilteredLeaves(data);
+  // };
+
   const filterByButton = (status) => {
-    const data = leaves.filter((leave) =>
+    const filteredData = leaves.filter((leave) =>
       leave.status.toLowerCase().includes(status.toLowerCase())
     );
-    setFilteredLeaves(data);
+
+    // Atur ulang nomor urut berdasarkan hasil filter
+    const dataNewNo = filteredData.map((leave, index) => ({
+      ...leave,
+      sno: `${index + 1}.`, // Nomor diatur ulang dari 1
+    }));
+
+    setFilteredLeaves(dataNewNo);
   };
 
   return (
@@ -73,21 +86,21 @@ const LeaveAdmin = () => {
       {filteredLeaves === null ? (
         <div>Loading...</div>
       ) : (
-        <div className="p-6">
+        <div className="leave">
           <div className="text-center">
-            <Typography className="text-2xl font-bold">Manage leave</Typography>
+            <Typography className="text-2xl font-bold">Kelola Cuti</Typography>
           </div>
           <div className="flex justify-between items-center">
             <InputSeacrh
-              placeholder="Seacrh By Dep Name"
+              placeholder="Cari berdasarkan nama karyawan"
               onChange={handleSearch}
             />
-            <div className="space-x-2">
+            <div className="space-x-1">
               <Button
                 className="px-4 py-1 bg-gray-800 hover:bg-gray-700 text-white font-bold"
                 onClick={() => filterByButton("")}
               >
-                Semua
+                All
               </Button>
               <Button
                 className="px-4 py-1 bg-yellow-500 hover:bg-yellow-400 text-white font-bold"
@@ -110,8 +123,17 @@ const LeaveAdmin = () => {
             </div>
           </div>
 
-          <div className="mt-5">
-            <DataTable columns={columns} data={filteredLeaves} pagination />
+          <div className="table-container overflow-x-auto mt-5 shadow-2xl">
+            <DataTable
+              columns={columns}
+              data={filteredLeaves}
+              pagination
+              responsive
+              highlightOnHover
+              striped
+              customStyles={customStyles} // Menerapkan gaya khusus
+              dense
+            />
           </div>
         </div>
       )}{" "}
@@ -120,3 +142,23 @@ const LeaveAdmin = () => {
 };
 
 export default LeaveAdmin;
+
+const customStyles = {
+  headCells: {
+    style: {
+      paddingTop: "8px",
+      paddingBottom: "8px",
+      fontSize: "14px",
+      backgroundColor: "#1f2937", // Warna gelap untuk header
+      color: "#ffffff", // Warna teks header
+      fontWeight: "bold", // Menjadikan teks header lebih tebal
+      // borderBottom: "2px solid #d1d5db", // Garis pembatas bawah header
+    },
+  },
+  cells: {
+    style: {
+      paddingTop: "6px",
+      paddingBottom: "6px",
+    },
+  },
+};
