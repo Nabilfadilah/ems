@@ -59,7 +59,7 @@ const LeaveList = () => {
       {filteredleaves === null ? (
         <div>Loading.....</div>
       ) : (
-        <div className="leave">
+        <div className="overflow-x-auto pb-2 shadow-2xl">
           <div className="text-center">
             <Typography className="text-2xl font-bold">Kelola Cuti</Typography>
           </div>
