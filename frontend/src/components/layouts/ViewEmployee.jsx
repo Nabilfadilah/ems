@@ -40,10 +40,10 @@ const ViewEmployee = () => {
   return (
     <>
       {employee && employee.userId ? (
-        <div className="max-w-3xl mx-auto mt-10 bg-white p-8 rounded-md shadow-sm">
-          <div className="flex justify-between items-center mb-10">
-            <Typography className="text-2xl font-bold px-10">
-              Employee Details
+        <div className="max-w-3xl mx-auto bg-white p-8 rounded-md shadow-2xl">
+          <div className="flex justify-between items-center mb-8">
+            <Typography className="text-2xl font-bold px-16">
+              Detail Karyawan
             </Typography>
 
             {user.role === "admin" && ( // Kondisi untuk hanya menampilkan button jika user adalah admin
@@ -54,55 +54,56 @@ const ViewEmployee = () => {
               </Link>
             )}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Profil Karyawan */}
+            <div className="flex flex-col items-center">
               <img
                 src={`http://localhost:5000/${employee.userId.profileImage}`}
-                className="rounded-full border w-72"
+                className="rounded-full border-2 border-gray-300 w-40 h-40 mb-4"
               />
+              <Typography className="text-xl font-semibold text-gray-800">
+                {employee.userId.name}
+              </Typography>
+              <Typography className="text-sm text-gray-600">
+                ID Karyawan: {employee.employeeId}
+              </Typography>
             </div>
-            <div>
-              <div className="flex space-x-3 mb-5">
-                <Typography className="text-lg font-bold">Name:</Typography>
-                <Typography className="font-medium">
-                  {employee.userId.name}
-                </Typography>
-              </div>
-              <div className="flex space-x-3 mb-5">
+
+            {/* tanggal ulang tahun */}
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
                 <Typography className="text-lg font-bold">
-                  Employee ID:
+                  Tanggal Lahir:
                 </Typography>
-                <Typography className="font-medium">
-                  {employee.employeeId}
-                </Typography>
-              </div>
-              <div className="flex space-x-3 mb-5">
-                <Typography className="text-lg font-bold">
-                  Date of Birth:
-                </Typography>
-                <Typography className="font-medium">
+                <Typography className="text-lg text-gray-700">
                   {new Date(employee.dob).toLocaleDateString()}
                 </Typography>
               </div>
-              <div className="flex space-x-3 mb-5">
-                <Typography className="text-lg font-bold">Gender:</Typography>
-                <Typography className="font-medium">
+
+              <div className="flex justify-between items-center">
+                <Typography className="text-lg font-bold">
+                  Jenis Kelamin:
+                </Typography>
+                <Typography className="text-lg text-gray-700">
                   {employee.gender}
                 </Typography>
               </div>
-              <div className="flex space-x-3 mb-5">
+
+              <div className="flex justify-between items-center">
                 <Typography className="text-lg font-bold">
-                  Department:
+                  Departemen:
                 </Typography>
-                <Typography className="font-medium">
+                <Typography className="text-lg text-gray-700">
                   {employee.department.dep_name}
                 </Typography>
               </div>
-              <div className="flex space-x-3 mb-5">
+
+              <div className="flex justify-between items-center">
                 <Typography className="text-lg font-bold">
-                  Marital Status:
+                  Status Pernikahan:
                 </Typography>
-                <Typography className="font-medium">
+                <Typography className="text-lg text-gray-700">
                   {employee.maritalStatus}
                 </Typography>
               </div>
@@ -110,7 +111,9 @@ const ViewEmployee = () => {
           </div>
         </div>
       ) : (
-        <div className="text-center p-80">Loading...</div> // or handle error message
+        <div className="text-center p-80">
+          <Typography className="text-lg text-gray-600">Loading...</Typography>
+        </div> // or handle error message
       )}
     </>
   );
