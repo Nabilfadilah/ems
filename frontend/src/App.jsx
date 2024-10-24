@@ -113,10 +113,7 @@ function App() {
           />
 
           {/* route leaves */}
-          <Route
-            path="/employee-dashboard/leaves/:id"
-            element={<LeaveList />}
-          />
+          <Route path="/employee-dashboard/leave/:id" element={<LeaveList />} />
           <Route path="/employee-dashboard/leave/add" element={<AddLeave />} />
 
           {/* route salary */}

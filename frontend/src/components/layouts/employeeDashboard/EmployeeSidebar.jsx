@@ -73,11 +73,11 @@ const EmployeeSidebar = ({ isOpen, toggleSidebar }) => {
 
         {/* leaves */}
         <NavLink
-          to={`/employee-dashboard/leaves/${user._id}`}
+          to={`/employee-dashboard/leave/${user._id}`}
           className={({ isActive }) =>
             `${
               isActive ? "bg-cyan-900" : "hover:bg-cyan-800"
-            } flex items-center space-x-4 py-2.5 px-4 rounded transition-all duration-200 mb-2`
+            } flex items-center space-x-4 py-2.5 px-4 rounded mb-2`
           }
         >
           <FaBuilding />
