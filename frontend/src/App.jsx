@@ -40,6 +40,7 @@ function App() {
         >
           {/* untuk menghubungkan dengan sumary menngunakan outlet */}
           <Route index element={<AdminSummary />}></Route>
+
           {/* route department */}
           <Route
             path="/admin-dashboard/departments"
@@ -55,9 +56,9 @@ function App() {
           />
 
           {/* route employee */}
-          <Route path="/admin-dashboard/employees" element={<EmployeeList />} />
+          <Route path="/admin-dashboard/employee" element={<EmployeeList />} />
           <Route
-            path="/admin-dashboard/add-employee"
+            path="/admin-dashboard/employee/add"
             element={<AddEmployee />}
           />
           <Route

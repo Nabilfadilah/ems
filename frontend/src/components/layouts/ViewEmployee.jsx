@@ -47,7 +47,7 @@ const ViewEmployee = () => {
             </Typography>
 
             {user.role === "admin" && ( // Kondisi untuk hanya menampilkan button jika user adalah admin
-              <Link to="/admin-dashboard/employees">
+              <Link to="/admin-dashboard/employee">
                 <Button className="bg-gray-700 hover:bg-gray-600 text-white flex items-center gap-1">
                   <IoMdArrowBack strokeWidth={2} className="h-4 w-4" /> Back
                 </Button>

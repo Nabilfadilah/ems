@@ -81,7 +81,7 @@ const AddEmployee = () => {
         );
         ModalAdd();
         if (response.data.success) {
-          navigate("/admin-dashboard/employees");
+          navigate("/admin-dashboard/employee");
         }
       } catch (error) {
         if (error.response && !error.response.data.success) {
@@ -106,7 +106,7 @@ const AddEmployee = () => {
         <Typography className="text-xl font-bold">
           Tambah Data Karyawan
         </Typography>
-        <Link to="/admin-dashboard/employees">
+        <Link to="/admin-dashboard/employee">
           <Button className="bg-gray-700 hover:bg-gray-600 text-white flex items-center gap-1 shadow-xl font-bold">
             <IoMdArrowBack strokeWidth={2} className="h-4 w-4" /> Kembali
           </Button>
