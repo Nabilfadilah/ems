@@ -43,11 +43,11 @@ function App() {
 
           {/* route department */}
           <Route
-            path="/admin-dashboard/departments"
+            path="/admin-dashboard/department"
             element={<DepartmentList />}
           />
           <Route
-            path="/admin-dashboard/add-new-department"
+            path="/admin-dashboard/department/add"
             element={<AddDepartment />}
           />
           <Route

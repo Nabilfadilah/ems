@@ -72,7 +72,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
 
         {/* Department */}
         <NavLink
-          to="/admin-dashboard/departments"
+          to="/admin-dashboard/department"
           className={({ isActive }) =>
             `${
               isActive ? "bg-cyan-900" : "hover:bg-cyan-800"

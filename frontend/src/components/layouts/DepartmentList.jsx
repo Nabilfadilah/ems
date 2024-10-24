@@ -81,7 +81,7 @@ const DepartmentList = () => {
               placeholder="Cari berdasarkan nama departemen"
               onChange={filterDepartments}
             />
-            <Link to="/admin-dashboard/add-new-department">
+            <Link to="/admin-dashboard/department/add">
               <Button className="bg-green-800 hover:bg-green-700 text-white font-bold flex items-center gap-2 shadow-xl">
                 <FaRegPlusSquare strokeWidth={2} className="h-4 w-4" /> Tambah
               </Button>

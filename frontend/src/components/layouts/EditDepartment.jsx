@@ -71,7 +71,7 @@ const EditDepartment = () => {
         );
         if (response.data.success) {
           ModalEdit(); // Tampilkan modal setelah edit sukses
-          navigate("/admin-dashboard/departments"); // Arahkan kembali setelah sukses
+          navigate("/admin-dashboard/department"); // Arahkan kembali setelah sukses
         }
       } catch (error) {
         if (error.response && !error.response.data.success) {
@@ -96,7 +96,7 @@ const EditDepartment = () => {
             <Typography className="text-xl font-bold">
               Ubah Departemen
             </Typography>
-            <Link to="/admin-dashboard/departments">
+            <Link to="/admin-dashboard/department">
               <Button className="bg-gray-700 hover:bg-gray-600 text-white flex items-center gap-1 shadow-xl font-bold">
                 <IoMdArrowBack strokeWidth={2} className="h-4 w-4" /> Back
               </Button>

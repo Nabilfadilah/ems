@@ -39,7 +39,7 @@ const AddDepartment = () => {
         );
         ModalAdd();
         if (response.data.success) {
-          navigate("/admin-dashboard/departments");
+          navigate("/admin-dashboard/department");
         }
       } catch (error) {
         if (error.response && !error.response.data.success) {
@@ -62,7 +62,7 @@ const AddDepartment = () => {
     <div className="max-w-6xl mx-auto bg-white p-8 rounded-md shadow-2xl w-full">
       <div className="flex justify-between items-center mb-6">
         <Typography className="text-xl font-bold">Tambah Departemen</Typography>
-        <Link to="/admin-dashboard/departments">
+        <Link to="/admin-dashboard/department">
           <Button className="bg-gray-700 hover:bg-gray-600 text-white flex items-center gap-1 shadow-xl font-bold">
             <IoMdArrowBack strokeWidth={2} className="h-4 w-4" /> Kembali
           </Button>
