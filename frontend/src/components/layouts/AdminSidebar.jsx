@@ -87,7 +87,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
 
         {/* Leave */}
         <NavLink
-          to="/admin-dashboard/leaves"
+          to="/admin-dashboard/leave"
           className={({ isActive }) =>
             `${
               isActive ? "bg-cyan-900" : "hover:bg-cyan-800"

@@ -51,7 +51,7 @@ const ViewLeave = () => {
       );
       console.log("Leave detail Data:", response.data);
       if (response.data.success) {
-        navigate("/admin-dashboard/leaves");
+        navigate("/admin-dashboard/leave");
       }
     } catch (error) {
       if (error.response && !error.response.data.success) {
@@ -69,7 +69,7 @@ const ViewLeave = () => {
               Detail Cuti Karyawan
             </Typography>
             {user.role === "admin" && (
-              <Link to="/admin-dashboard/leaves">
+              <Link to="/admin-dashboard/leave">
                 <Button className="bg-gray-700 hover:bg-gray-600 text-white flex items-center gap-2 py-2 px-4 rounded-lg">
                   <IoMdArrowBack className="h-5 w-5" /> Kembali
                 </Button>

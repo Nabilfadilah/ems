@@ -70,13 +70,13 @@ function App() {
             element={<EditEmployee />}
           />
           <Route
-            path="/admin-dashboard/employee/leaves/:id"
+            path="/admin-dashboard/employee/leave/:id"
             element={<LeaveList />}
           />
 
           {/* route leave */}
-          <Route path="/admin-dashboard/leaves" element={<LeaveAdmin />} />
-          <Route path="/admin-dashboard/leaves/:id" element={<ViewLeave />} />
+          <Route path="/admin-dashboard/leave" element={<LeaveAdmin />} />
+          <Route path="/admin-dashboard/leave/:id" element={<ViewLeave />} />
 
           {/* route salary */}
           <Route path="/admin-dashboard/salary" element={<AddSalary />} />
@@ -117,7 +117,7 @@ function App() {
             path="/employee-dashboard/leaves/:id"
             element={<LeaveList />}
           />
-          <Route path="/employee-dashboard/add-leave" element={<AddLeave />} />
+          <Route path="/employee-dashboard/leave/add" element={<AddLeave />} />
 
           {/* route salary */}
           <Route

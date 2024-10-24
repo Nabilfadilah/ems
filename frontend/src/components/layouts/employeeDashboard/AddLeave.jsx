@@ -48,7 +48,7 @@ const AddLeave = () => {
         );
         ModalAdd();
         if (response.data.success) {
-          navigate(`/employee-dashboard/leaves/${user._id}`);
+          navigate(`/employee-dashboard/leave/${user._id}`);
         }
       } catch (error) {
         if (error.response && !error.response.data.success) {
@@ -64,7 +64,7 @@ const AddLeave = () => {
         <Typography className="text-xl font-bold">
           Alasan Permintaan Cuti
         </Typography>
-        <Link to={`/employee-dashboard/leaves/${user._id}`}>
+        <Link to={`/employee-dashboard/leave/${user._id}`}>
           <Button className="bg-gray-700 hover:bg-gray-600 text-white flex items-center gap-1 shadow-xl font-bold">
             <IoMdArrowBack strokeWidth={2} className="h-4 w-4" /> Kembali
           </Button>

@@ -115,7 +115,7 @@ export const EmployeeButtons = ({ _id }) => {
       {/* leave */}
       <Button
         className="bg-red-700 text-white font-semibold"
-        onClick={() => navigate(`/admin-dashboard/employee/leaves/${_id}`)}
+        onClick={() => navigate(`/admin-dashboard/employee/leave/${_id}`)}
       >
         Cuti
       </Button>
