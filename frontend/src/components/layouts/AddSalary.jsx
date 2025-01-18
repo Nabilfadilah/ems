@@ -53,6 +53,7 @@ const AddSalary = () => {
     }),
     onSubmit: async (values) => {
       // console.log(values);
+      console.log(values);
       console.log("Net Salary being submitted:", values.netSalary);
       try {
         const response = await axios.post(
@@ -67,7 +68,7 @@ const AddSalary = () => {
         console.log("Data salary add :", response.data);
         ModalAdd();
         if (response.data.success) {
-          navigate("/admin-dashboard/employees");
+          navigate("/admin-dashboard/employee");
         }
       } catch (error) {
         if (error.response && !error.response.data.success) {
